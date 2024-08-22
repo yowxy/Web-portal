@@ -30,7 +30,7 @@ class ArticleNews extends Model
         $this->attributes['slug'] = Str::slug($value);
     }
 
-    public function Category() : BelongsTo{
+    public function category() : BelongsTo{
         return $this->belongsTo(Category::class, 'category_id' );
     }
 
