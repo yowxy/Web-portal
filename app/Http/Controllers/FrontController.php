@@ -43,6 +43,24 @@ class FrontController extends Controller
             ->get();
 
 
+            $bussiness_articles = ArticleNews::whereHas('category', function ($query) {
+                $query->where('name', 'Bussiness');
+            })
+            ->where('is_featured', 'not_featured')
+            ->latest()
+            ->take(6)
+            ->get();
+
+            $bussiness_featured_articles = ArticleNews::whereHas('category', function ($query) {
+                $query->where('name', 'Bussiness');
+            })
+            ->where('is_featured', 'featured')
+            ->inRandomOrder()
+            ->first();
+
+
+
+
 
             $entertainment_featured_articles = ArticleNews::whereHas('category', function ($query) {
                 $query->where('name', 'Entertainment');
@@ -56,7 +74,7 @@ class FrontController extends Controller
 
         $authors = Author::all();
 
-        return view('front.index', compact('entertainment_featured_articles','entertainment_articles','categories','articles','authors',
+        return view('front.index', compact('bussiness_featured_articles','bussiness_articles','entertainment_featured_articles','entertainment_articles','categories','articles','authors',
         'featured_articles', 'bannerads',));
     }
 }
