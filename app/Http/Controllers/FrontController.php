@@ -30,7 +30,6 @@ class FrontController extends Controller
         $bannerads = BannerAdvertisement::where('is_active','active')
         ->where('type','banner')
             ->inRandomOrder()
-            // ->take(1)
             ->first();
 
 
@@ -79,9 +78,6 @@ class FrontController extends Controller
             ->first();
 
 
-
-
-
             $entertainment_featured_articles = ArticleNews::whereHas('category', function ($query) {
                 $query->where('name', 'Entertainment');
             })
@@ -90,11 +86,22 @@ class FrontController extends Controller
             ->first();
 
 
-
-
         $authors = Author::all();
 
         return view('front.index', compact('automotive_featured_articles','automotive_articles','bussiness_featured_articles','bussiness_articles','entertainment_featured_articles','entertainment_articles','categories','articles','authors',
         'featured_articles', 'bannerads',));
     }
+
+
+    public function  category (Category $category){
+        $categories = Category::all();
+        $bannerads = BannerAdvertisement::where('is_active','active')
+        ->where('type','banner')
+            ->inRandomOrder()
+            ->first();
+        return view('front.category', compact('category','categories','bannerads'));  
+    }
+
+
+
 }
