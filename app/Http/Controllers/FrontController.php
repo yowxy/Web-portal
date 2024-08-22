@@ -51,6 +51,26 @@ class FrontController extends Controller
             ->take(6)
             ->get();
 
+
+            $automotive_articles = ArticleNews::whereHas('category', function ($query) {
+                $query->where('name','Automotive');
+            })
+
+            ->where('is_featured','not_featured')
+            ->latest()
+            ->take(6)
+            ->get();
+
+
+            $automotive_featured_articles = ArticleNews::whereHas('category', function($query){
+                $query->where('name', 'Automotive');
+            })
+
+            ->where('is_featured', 'featured')
+            ->inRandomOrder()
+            ->first();
+
+
             $bussiness_featured_articles = ArticleNews::whereHas('category', function ($query) {
                 $query->where('name', 'Bussiness');
             })
@@ -74,7 +94,7 @@ class FrontController extends Controller
 
         $authors = Author::all();
 
-        return view('front.index', compact('bussiness_featured_articles','bussiness_articles','entertainment_featured_articles','entertainment_articles','categories','articles','authors',
+        return view('front.index', compact('automotive_featured_articles','automotive_articles','bussiness_featured_articles','bussiness_articles','entertainment_featured_articles','entertainment_articles','categories','articles','authors',
         'featured_articles', 'bannerads',));
     }
 }
