@@ -1,15 +1,5 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<link href="{{ asset('output.css')}}" rel="stylesheet" />
-	<link href="{{ asset('main.css')}}" rel="stylesheet" />
-	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap"
-		rel="stylesheet" />
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
+@extends('front.master')
+@section('content')
 
 <body class="font-[Poppins] pb-[83px]">
 
@@ -40,7 +30,7 @@
 			<a href="{{ route('front.details', $news->slug) }}" class="card">
 				<div
 					class="flex flex-col gap-4 p-[26px_20px] transition-all duration-300 ring-1 ring-[#EEF0F7] hover:ring-2 hover:ring-[#FF6B18] rounded-[20px] overflow-hidden bg-white">
-					<div class="thumbnail-container h-[200px] relative rounded-[20px] overflow-hidden">     
+					<div class="thumbnail-container h-[200px] relative rounded-[20px] overflow-hidden">
 						<div
 							class="badge absolute left-5 top-5 bottom-auto right-auto flex p-[8px_18px] bg-white rounded-[50px]">
 							<p class="text-xs leading-[18px] font-bold uppercase">{{ $news->category->name }}</p>
@@ -54,7 +44,7 @@
 					</div>
 				</div>
 			</a>
-                
+
             @empty
                 <p>Belum ada berita terbaru</p>
             @endforelse
@@ -76,4 +66,9 @@
 	</section>
 </body>
 
-</html>
+@endsection
+
+@push('after-scripts')
+<script src="https://cdn.tailwindcss.com"></script>
+@endpush
+
