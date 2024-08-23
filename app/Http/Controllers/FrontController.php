@@ -99,7 +99,7 @@ class FrontController extends Controller
         ->where('type','banner')
             ->inRandomOrder()
             ->first();
-        return view('front.category', compact('category','categories','bannerads'));  
+        return view('front.category', compact('category','categories','bannerads'));
     }
 
 
@@ -117,15 +117,19 @@ class FrontController extends Controller
         $validatedData = $request->validate([
             'keyword' => ['required', 'string', 'max:255'],
         ]);
-    
+
         $categories = Category::all();
-    
+
         $keyword = $validatedData['keyword'];
-    
+
         $articles = ArticleNews::with(['category', 'author'])
             ->where('name', 'like', '%' . $keyword . '%')->paginate(6);
-    
+
         return view('front.search', compact('categories', 'keyword', 'articles'));
     }
-    
+
+    public function details(ArticleNews $articleNews){
+        return view ('front.details',compact('articleNews'));
+    }
+
 }
